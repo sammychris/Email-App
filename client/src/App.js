@@ -1,30 +1,21 @@
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import './App.scss';
-import { Mailer } from './Mailer'; 
+import { useRoutes } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core';
+import GlobalStyles from 'src/components/GlobalStyles';
+import 'src/mixins/chartjs';
+import theme from 'src/theme';
+import routes from 'src/routes';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isReady: false,
-    }
-  }
-  
-  componentDidMount(){
-    this.setState({ isReady: true });
-  }
+const App = () => {
+  const routing = useRoutes(routes);
 
-  render() {
-    return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Mailer} />
-        </Switch>
-      </Router>
-    )
-  }
-
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      {routing}
+    </ThemeProvider>
+  );
+};
 
 export default App;
